@@ -30,7 +30,7 @@ const Login = ({ navigation }) => {
   const [Password, setPassword] = useState("");
 
   const signIn = () => {
-    if (email === "" && Password === "") {
+    if (email === "" || Password === "") {
       setloading(true);
       if (email === "") {
         alert("Email Field is Required!");
@@ -67,7 +67,7 @@ const Login = ({ navigation }) => {
         .catch((error) => {
           // console.warn(error.response.data);
           if (error.message === "Request failed with status code 500") {
-            alert("Something went wrong Please Check again !");
+            alert("Wrong Credientials");
           }
           setloading(false);
         });

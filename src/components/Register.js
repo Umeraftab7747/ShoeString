@@ -39,34 +39,38 @@ const Register = ({ navigation }) => {
       Password !== ""
     ) {
       if (Password.length > 7) {
-        setloading(true);
-        const params = {
-          firstName: FirstName,
-          LastName: LastName,
-          Email: Email.toLowerCase(),
-          Password: Password,
-        };
+        if (Email.includes("@gmail")) {
+          setloading(true);
+          const params = {
+            firstName: FirstName,
+            LastName: LastName,
+            Email: Email.toLowerCase(),
+            Password: Password,
+          };
 
-        axiosInstance
-          .post(baseUrl + "users/signup", params)
-          .then((res) => {
-            console.warn(res);
-            const userData = res.data;
+          axiosInstance
+            .post(baseUrl + "users/signup", params)
+            .then((res) => {
+              console.warn(res);
+              const userData = res.data;
 
-            if (userData.status === "200") {
-              setloading(false);
-              alert("User Register !");
-              navigation.goBack();
-              // navigation.navigate("Results")
-            }
-          })
-          .catch((error) => {
-            if (error) {
-              // console.warn(error);
-              setloading(false);
-              alert("Email Already Registered");
-            }
-          });
+              if (userData.status === "200") {
+                setloading(false);
+                alert("User Register !");
+                navigation.goBack();
+                // navigation.navigate("Results")
+              }
+            })
+            .catch((error) => {
+              if (error) {
+                // console.warn(error);
+                setloading(false);
+                alert("Email Already Registered");
+              }
+            });
+        } else {
+          alert("use Valid Email");
+        }
       } else {
         setloading(false);
         alert("Password must contain 8 characters.");
