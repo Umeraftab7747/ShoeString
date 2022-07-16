@@ -1,0 +1,62 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Users\Qc\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js install
+
+PATH: 
+  C:\Users\Qc\AppData\Local\Google\Chrome\Application;C:\Program Files\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\ProgramData\chocolatey\bin;C:\Program Files\nodejs\;C:\Program Files\Condusiv Technologies\ExpressCache\;C:\Program Files\Git\cmd;C:\Users\Qc\AppData\Local\Android\Sdk\platform-tools;C:\Program Files\Android\Android Studio\plugins\java;C:\Users\Qc\AppData\Local\Microsoft\WindowsApps;C:\Users\Qc\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Qc\AppData\Roaming\npm;C:\Users\Qc\AppData\Local\GitHubDesktop\bin;
+
+Yarn version: 
+  1.22.18
+
+Node version: 
+  16.15.0
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: read ECONNRESET
+      at TLSWrap.onStreamRead (node:internal/stream_base_commons:217:20)
+
+npm manifest: 
+  {
+    "name": "shoestringapp",
+    "version": "1.0.0",
+    "main": "node_modules/expo/AppEntry.js",
+    "scripts": {
+      "start": "expo start",
+      "android": "expo start --android",
+      "ios": "expo start --ios",
+      "web": "expo start --web",
+      "eject": "expo eject"
+    },
+    "dependencies": {
+      "@react-native-community/masked-view": "^0.1.10",
+      "@react-navigation/native": "^5.9.3",
+      "@react-navigation/stack": "^5.14.3",
+      "axios": "^0.27.2",
+      "expo": "~45.0.0",
+      "expo-font": "~10.1.0",
+      "expo-status-bar": "~1.3.0",
+      "react": "17.0.2",
+      "react-dom": "17.0.2",
+      "react-native": "0.68.2",
+      "react-native-gesture-handler": "~2.2.1",
+      "react-native-reanimated": "^2.0.0",
+      "react-native-safe-area-context": "^3.1.9",
+      "react-native-screens": "^2.18.1",
+      "react-native-vector-icons": "^8.1.0",
+      "react-native-wavy-background": "^0.2.0",
+      "react-native-web": "0.17.7",
+      "expo-updates": "~0.13.3"
+    },
+    "devDependencies": {
+      "@babel/core": "^7.12.9"
+    },
+    "private": true
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
