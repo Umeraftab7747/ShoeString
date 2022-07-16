@@ -76,7 +76,7 @@ const Details = ({ navigation }) => {
 						alignItems: "center",
 						justifyContent: "center",
 					}}
-					onPress={() => navigation.navigate("LandingPage")}>
+					onPress={() => navigation.goBack()}>
 					<Icon
 						style={{ color: COLOURS.orange }}
 						name='arrow-back-ios'
