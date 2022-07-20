@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import qs from "qs";
 import {
 	SafeAreaView,
 	ScrollView,
@@ -21,13 +22,24 @@ import COLOURS from "../consts/colours";
 import { CheckBox } from "react-native-web";
 
 // Auth Api
-import { axiosInstance, baseUrl } from "../api";
-
+import {
+	axiosInstance,
+	baseUrl,
+	fetchFlights,
+	fetchHotles,
+	fetchToken,
+} from "../api";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "../store/authSlice";
 const Login = ({ navigation }) => {
 	const [isSelected, setSelection] = useState(false);
+	const dispatch = useDispatch();
 	const [loading, setloading] = useState(false);
 	const [email, setemail] = useState("");
 	const [Password, setPassword] = useState("");
+	const { user } = useSelector((state) => state.auth);
+	console.log("user", user);
 
 	const signIn = () => {
 		if (email === "" || Password === "") {
@@ -48,10 +60,20 @@ const Login = ({ navigation }) => {
 			};
 
 			axiosInstance
-				.post(baseUrl + "users/signin", params)
+				.post(baseUrl + "/users/signin", params)
 				.then(async (res) => {
 					const userData = res.data;
 					console.log(userData);
+					dispatch(
+						setUser({
+							user: {
+								email: userData.user.Email,
+								userid: userData.user._id,
+								username:
+									userData.user.firstName + " " + userData.user.LastName,
+							},
+						})
+					);
 					if (userData.msg === "User not found") {
 						alert("Check your Email and Password Again!");
 						setloading(false);
@@ -70,6 +92,9 @@ const Login = ({ navigation }) => {
 					// console.warn(error.response.data);
 					if (error.message === "Request failed with status code 500") {
 						alert("Wrong Credientials");
+					} else {
+						console.log(error.response.data);
+						console.log(error.message);
 					}
 					setloading(false);
 				});

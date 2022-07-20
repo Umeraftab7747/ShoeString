@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
 	SafeAreaView,
 	ScrollView,
@@ -13,12 +13,51 @@ import {
 	TouchableOpacity,
 	Image,
 } from "react-native";
+import moment from "moment";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import WavyBackground from "react-native-wavy-background";
 import COLOURS from "../consts/colours";
-
+import { useDispatch } from "react-redux";
+import { setLandingPageInfo } from "../store/projectSlice";
 const LandingPage = ({ navigation }) => {
+	const dispatch = useDispatch();
+	const [formdata, setformdata] = useState({
+		origin: "",
+		departure: "",
+		return: "",
+		budget: "",
+	});
+	const formSubmitFun = async () => {
+		if (
+			formdata.origin.length > 0 &&
+			formdata.origin.length > 0 &&
+			formdata.origin.length > 0 &&
+			formdata.origin.length > 0
+		) {
+			var date = moment(formdata.departure);
+			var date2 = moment(formdata.return);
+
+			var check = date.isValid();
+			var check2 = date2.isValid();
+			if (check) {
+				if (check2) {
+					await dispatch(setLandingPageInfo({ landinPageData: formdata }));
+					navigation.navigate("DestinationScreen");
+				} else {
+					alert(
+						"Return Input Field has invalid Date Format.Use Valid Format YYYY-MM-DD"
+					);
+				}
+			} else {
+				alert(
+					"Departure Input Field has invalid Date Format.Use Valid Format YYYY-MM-DD"
+				);
+			}
+		} else {
+			alert("All fields are required");
+		}
+	};
 	return (
 		<SafeAreaView style={{ flex: 1, backgroundColor: COLOURS.white }}>
 			<StatusBar translucent={false} backgroundColor={COLOURS.orange} />
@@ -45,6 +84,10 @@ const LandingPage = ({ navigation }) => {
 						<TextInput
 							style={{ paddingLeft: 10, color: COLOURS.grey }}
 							placeholder='where are you departing from?'
+							value={formdata.origin}
+							onChangeText={(text) =>
+								setformdata({ ...formdata, origin: text })
+							}
 						/>
 					</View>
 					<View style={style.inputContainer}>
@@ -56,6 +99,10 @@ const LandingPage = ({ navigation }) => {
 						<TextInput
 							style={{ paddingLeft: 10, color: COLOURS.grey }}
 							placeholder='departing'
+							value={formdata.departure}
+							onChangeText={(text) =>
+								setformdata({ ...formdata, departure: text })
+							}
 						/>
 						<Icon
 							style={{ color: COLOURS.orange, paddingLeft: 20 }}
@@ -70,6 +117,10 @@ const LandingPage = ({ navigation }) => {
 						<TextInput
 							style={{ paddingLeft: 10, color: COLOURS.grey }}
 							placeholder='returning'
+							value={formdata.return}
+							onChangeText={(text) =>
+								setformdata({ ...formdata, return: text })
+							}
 						/>
 					</View>
 					<View style={style.inputContainer}>
@@ -81,27 +132,29 @@ const LandingPage = ({ navigation }) => {
 						<TextInput
 							style={{ paddingLeft: 10, color: COLOURS.grey }}
 							placeholder="what's your BUDGET?"
+							value={formdata.budget}
+							onChangeText={(text) =>
+								setformdata({ ...formdata, budget: text })
+							}
 						/>
 					</View>
 					<TouchableOpacity
 						style={{ ...style.btn, marginTop: 30 }}
 						activeOpacity={0.8}
-						onPress={() => navigation.navigate("Results")}>
-						<View style={style.btn}>
-							<Image
-								style={style.symbol}
-								resizeMode='contain'
-								source={require("../images/shoestring_symbol.png")}
-							/>
-							<Text
-								style={{
-									fontWeight: "bold",
-									color: COLOURS.white,
-									fontSize: 16,
-								}}>
-								SHOESTRING ME SOMETHING!
-							</Text>
-						</View>
+						onPress={formSubmitFun}>
+						<Image
+							style={style.symbol}
+							resizeMode='contain'
+							source={require("../images/shoestring_symbol.png")}
+						/>
+						<Text
+							style={{
+								fontWeight: "bold",
+								color: COLOURS.white,
+								fontSize: 16,
+							}}>
+							SHOESTRING ME SOMETHING!
+						</Text>
 					</TouchableOpacity>
 				</View>
 				<View
